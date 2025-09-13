@@ -1,0 +1,15 @@
+### Like Post
+POST {{baseUrl}}/api/posts/{{postId}}/like
+Content-Type: application/json
+
+{
+  "userId": "{{userId}}"
+}
+
+### Like Post (Example)
+POST {{baseUrl}}/api/posts/12345678-1234-1234-1234-123456789012/like
+Content-Type: application/json
+
+{
+  "userId": "87654321-4321-4321-4321-210987654321"
+} 

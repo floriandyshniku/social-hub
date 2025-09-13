@@ -1,0 +1,11 @@
+### Get All Posts (Default - Published Only)
+GET {{baseUrl}}/api/posts
+
+### Get All Posts (Paginated)
+GET {{baseUrl}}/api/posts?skip=0&take=10&publishedOnly=true
+
+### Get All Posts (Include Drafts)
+GET {{baseUrl}}/api/posts?skip=0&take=20&publishedOnly=false
+
+### Get All Posts (Second Page)
+GET {{baseUrl}}/api/posts?skip=20&take=10&publishedOnly=true 

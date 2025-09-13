@@ -1,0 +1,18 @@
+### Create Post
+POST {{baseUrl}}/api/posts
+Content-Type: application/json
+
+{
+  "authorId": "{{userId}}",
+  "content": "This is my first post! #hello #world",
+  "imageUrl": "https://example.com/image.jpg"
+}
+
+### Create Post (Simple)
+POST {{baseUrl}}/api/posts
+Content-Type: application/json
+
+{
+  "authorId": "{{userId}}",
+  "content": "Just a simple text post without image"
+} 

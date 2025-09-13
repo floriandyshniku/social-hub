@@ -1,0 +1,5 @@
+### Get Post by ID
+GET {{baseUrl}}/api/posts/{{postId}}
+
+### Get Post by ID (Example)
+GET {{baseUrl}}/api/posts/12345678-1234-1234-1234-123456789012 

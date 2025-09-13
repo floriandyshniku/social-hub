@@ -1,0 +1,104 @@
+### Create a new user
+POST http://localhost:5028/api/users
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "email": "john@example.com",
+  "displayName": "John Doe",
+  "bio": "Hello, I'm John!",
+  "profilePictureUrl": "https://example.com/john.jpg"
+}
+
+### Get a user by ID (replace {userId} with actual GUID)
+GET http://localhost:5028/api/users/{a023764f-9df2-415b-98e1-891c8053ca76}
+
+### Get all users (default: max 50 results)
+GET http://localhost:5028/api/users
+
+### Get users with username containing "john"
+GET http://localhost:5028/api/users?usernameContains=john
+
+### Get users created after 2024-01-01, max 10 results
+GET http://localhost:5028/api/users?createdAfter=2024-01-01&maxResults=10
+
+### Get users with username containing "doe" and max 5 results
+GET http://localhost:5028/api/users?usernameContains=doe&maxResults=5
+
+### Test validation - invalid maxResults (should return error)
+GET http://localhost:5028/api/users?maxResults=2000
+
+### Test validation - negative maxResults (should return error)
+GET http://localhost:5028/api/users?maxResults=-5
+
+### Get users created after 2023-01-01 with username filter
+GET http://localhost:5028/api/users?createdAfter=2023-01-01&usernameContains=john&maxResults=20
+
+### Update user profile (replace {userId} with actual GUID)
+PUT http://localhost:5028/api/users/{a023764f-9df2-415b-98e1-891c8053ca76}
+Content-Type: application/json
+
+{
+  "displayName": "John Updated",
+  "bio": "Updated bio for John!",
+  "profilePictureUrl": "https://example.com/john_updated.jpg"
+}
+
+### Update user with partial data (only displayName)
+PUT http://localhost:5028/api/users/{a023764f-9df2-415b-98e1-891c8053ca76}
+Content-Type: application/json
+
+{
+  "displayName": "John Doe Updated"
+}
+
+### Test update validation - empty request (should return error)
+PUT http://localhost:5028/api/users/{a023764f-9df2-415b-98e1-891c8053ca76}
+Content-Type: application/json
+
+{}
+
+### Soft delete user (deactivate)
+DELETE http://localhost:5028/api/users/{a023764f-9df2-415b-98e1-891c8053ca76}
+
+### Hard delete user (permanent)
+DELETE http://localhost:5028/api/users/{a023764f-9df2-415b-98e1-891c8053ca76}?hardDelete=true
+
+### Create second user for follow testing
+POST http://localhost:5028/api/users
+Content-Type: application/json
+
+{
+  "username": "jane_smith",
+  "email": "jane@example.com",
+  "displayName": "Jane Smith",
+  "bio": "Hello, I'm Jane!",
+  "profilePictureUrl": "https://example.com/jane.jpg"
+}
+
+### Follow user (replace {followerId} and {userToFollowId} with actual GUIDs)
+POST http://localhost:5028/api/users/{4d4cd77c-d3b4-4190-bca2-b0defa390919}/follow/{a023764f-9df2-415b-98e1-891c8053ca76}
+
+### Follow user - John follows Jane (replace with actual GUIDs)
+POST http://localhost:5028/api/users/{a023764f-9df2-415b-98e1-891c8053ca76}/follow/{4d4cd77c-d3b4-4190-bca2-b0defa390919}
+
+### Test follow validation - follow yourself (should return error)
+POST http://localhost:5028/api/users/{userId}/follow/{userId}
+
+### Test follow validation - follow non-existent user (should return error)
+POST http://localhost:5028/api/users/{followerId}/follow/00000000-0000-0000-0000-000000000000
+
+### Test follow validation - follow already followed user (should return error)
+POST http://localhost:5028/api/users/{followerId}/follow/{userToFollowId}
+
+### Unfollow user (replace {followerId} and {userToUnfollowId} with actual GUIDs)
+DELETE http://localhost:5028/api/users/{followerId}/follow/{userToUnfollowId}
+
+### Unfollow user - John unfollows Jane (replace with actual GUIDs)
+DELETE http://localhost:5028/api/users/{johnUserId}/follow/{janeUserId}
+
+### Test unfollow validation - unfollow non-followed user (should return error)
+DELETE http://localhost:5028/api/users/{followerId}/follow/{userToUnfollowId}
+
+### Test unfollow validation - unfollow non-existent user (should return error)
+DELETE http://localhost:5028/api/users/{followerId}/follow/00000000-0000-0000-0000-000000000000 

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-time Notifications Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .notification { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .follow { background-color: #e3f2fd; border-left: 4px solid #2196f3; }
+        .like { background-color: #f3e5f5; border-left: 4px solid #9c27b0; }
+        .post-update { background-color: #e8f5e8; border-left: 4px solid #4caf50; }
+        #notifications { max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; }
+        .input-group { margin: 10px 0; }
+        input, button { padding: 8px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Real-time Notifications Test</h1>
+    
+    <div class="input-group">
+        <label>User ID:</label>
+        <input type="text" id="userId" placeholder="Enter user ID" />
+        <button onclick="joinUserGroup()">Join User Group</button>
+        <button onclick="leaveUserGroup()">Leave User Group</button>
+    </div>
+    
+    <div class="input-group">
+        <label>Post ID:</label>
+        <input type="text" id="postId" placeholder="Enter post ID" />
+        <button onclick="joinPostGroup()">Join Post Group</button>
+        <button onclick="leavePostGroup()">Leave Post Group</button>
+    </div>
+    
+    <h3>Notifications:</h3>
+    <div id="notifications"></div>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/notificationHub")
+            .build();
+
+        connection.on("ReceiveNotification", function (notification) {
+            addNotification(notification, "follow");
+        });
+
+        connection.on("ReceivePostUpdate", function (notification) {
+            addNotification(notification, "post-update");
+        });
+
+        connection.on("ReceiveBroadcast", function (notification) {
+            addNotification(notification, "broadcast");
+        });
+
+        function addNotification(notification, type) {
+            const div = document.createElement("div");
+            div.className = `notification ${type}`;
+            div.innerHTML = `
+                <strong>${notification.type.toUpperCase()}</strong><br>
+                ${notification.message}<br>
+                <small>${new Date(notification.timestamp).toLocaleString()}</small>
+            `;
+            document.getElementById("notifications").appendChild(div);
+        }
+
+        async function joinUserGroup() {
+            const userId = document.getElementById("userId").value;
+            if (userId) {
+                await connection.invoke("JoinUserGroup", userId);
+                addNotification({ type: "info", message: `Joined user group: ${userId}`, timestamp: new Date() }, "info");
+            }
+        }
+
+        async function leaveUserGroup() {
+            const userId = document.getElementById("userId").value;
+            if (userId) {
+                await connection.invoke("LeaveUserGroup", userId);
+                addNotification({ type: "info", message: `Left user group: ${userId}`, timestamp: new Date() }, "info");
+            }
+        }
+
+        async function joinPostGroup() {
+            const postId = document.getElementById("postId").value;
+            if (postId) {
+                await connection.invoke("JoinPostGroup", postId);
+                addNotification({ type: "info", message: `Joined post group: ${postId}`, timestamp: new Date() }, "info");
+            }
+        }
+
+        async function leavePostGroup() {
+            const postId = document.getElementById("postId").value;
+            if (postId) {
+                await connection.invoke("LeavePostGroup", postId);
+                addNotification({ type: "info", message: `Left post group: ${postId}`, timestamp: new Date() }, "info");
+            }
+        }
+
+        connection.start().then(function () {
+            addNotification({ type: "info", message: "Connected to SignalR hub", timestamp: new Date() }, "info");
+        }).catch(function (err) {
+            console.error(err.toString());
+        });
+    </script>
+</body>
+</html> 

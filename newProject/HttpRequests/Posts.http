@@ -1,0 +1,67 @@
+@baseUrl = https://localhost:7001
+@userId = 12345678-1234-1234-1234-123456789012
+@postId = 87654321-4321-4321-4321-210987654321
+
+### ========================================
+### POSTS API - Complete Test Suite
+### ========================================
+
+### 1. Create Post
+POST {{baseUrl}}/api/posts
+Content-Type: application/json
+
+{
+  "authorId": "{{userId}}",
+  "content": "This is my first post! #hello #world",
+  "imageUrl": "https://example.com/image.jpg"
+}
+
+### 2. Create Post (Simple)
+POST {{baseUrl}}/api/posts
+Content-Type: application/json
+
+{
+  "authorId": "{{userId}}",
+  "content": "Just a simple text post without image"
+}
+
+### 3. Get All Posts (Default)
+GET {{baseUrl}}/api/posts
+
+### 4. Get All Posts (Paginated)
+GET {{baseUrl}}/api/posts?skip=0&take=10&publishedOnly=true
+
+### 5. Get All Posts (Include Drafts)
+GET {{baseUrl}}/api/posts?skip=0&take=20&publishedOnly=false
+
+### 6. Get Post by ID
+GET {{baseUrl}}/api/posts/{{postId}}
+
+### 7. Publish Post
+POST {{baseUrl}}/api/posts/{{postId}}/publish
+
+### 8. Like Post
+POST {{baseUrl}}/api/posts/{{postId}}/like
+Content-Type: application/json
+
+{
+  "userId": "{{userId}}"
+}
+
+### 9. Add Comment to Post
+POST {{baseUrl}}/api/posts/{{postId}}/comments
+Content-Type: application/json
+
+{
+  "authorId": "{{userId}}",
+  "content": "Great post! Thanks for sharing."
+}
+
+### 10. Add Another Comment
+POST {{baseUrl}}/api/posts/{{postId}}/comments
+Content-Type: application/json
+
+{
+  "authorId": "{{userId}}",
+  "content": "This is really helpful information!"
+} 

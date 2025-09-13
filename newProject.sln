@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialHub", "newProject\SocialHub.csproj", "{A82CB80C-0031-4EBE-9AB1-817B6FEA117C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A82CB80C-0031-4EBE-9AB1-817B6FEA117C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A82CB80C-0031-4EBE-9AB1-817B6FEA117C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A82CB80C-0031-4EBE-9AB1-817B6FEA117C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A82CB80C-0031-4EBE-9AB1-817B6FEA117C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F77FF57F-D534-46DD-840F-E5A10F3DF512}
+	EndGlobalSection
+EndGlobal
