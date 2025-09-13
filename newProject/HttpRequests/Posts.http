@@ -64,4 +64,32 @@ Content-Type: application/json
 {
   "authorId": "{{userId}}",
   "content": "This is really helpful information!"
+}
+
+### 11. Edit Post
+PUT {{baseUrl}}/api/posts
+Content-Type: application/json
+
+{
+  "postId": "{{postId}}",
+  "content": "This is my updated post content! #updated #edited",
+  "imageUrl": "https://example.com/new-image.jpg"
+}
+
+### 12. Edit Post (Text Only)
+PUT {{baseUrl}}/api/posts
+Content-Type: application/json
+
+{
+  "postId": "{{postId}}",
+  "content": "Just updated text without image"
+}
+
+### 13. Edit Post (Remove Image)
+PUT {{baseUrl}}/api/posts
+Content-Type: application/json
+
+{
+  "postId": "{{postId}}",
+  "content": "Updated post with image removed"
 } 

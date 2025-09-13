@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace newProject.Domain.Common;
 
 public abstract class AggregateRoot<TId> : Entity<TId> where TId : notnull

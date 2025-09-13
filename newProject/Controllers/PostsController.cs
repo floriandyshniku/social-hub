@@ -6,6 +6,7 @@ using newProject.Application.Posts.Commands.LikePost;
 using newProject.Application.Posts.Commands.AddComment;
 using newProject.Application.Posts.Queries.GetPost;
 using newProject.Application.Posts.Queries.GetAllPosts;
+using SocialHub.Application.Posts.Commands.EditPost;
 
 namespace newProject.Controllers;
 
@@ -73,6 +74,13 @@ public class PostsController : ControllerBase
         });
 
         return Ok(response);
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> EditPost([FromBody] EditPostCommand command)
+    {
+        var postId = await _mediator.Send(command);
+        return Ok(new { PostId = postId.Value });
     }
 
     [HttpPost("{postId:guid}/publish")]
