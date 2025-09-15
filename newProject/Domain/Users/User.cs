@@ -1,8 +1,8 @@
 using newProject.Domain.Common;
 using newProject.Domain.Users.Events;
 using newProject.Domain.Users.ValueObjects;
+using SocialHub.Domain.Users;
 using SocialHub.Domain.Users.Events;
-using SocialHub.Domain.Users.ValueObjects;
 
 namespace newProject.Domain.Users;
 
@@ -135,22 +135,22 @@ public class User : AggregateRoot<UserId>
         return _following.Count;
     }
 
-    public void ReceiveFollowRequest(UserId fromUserId)
-    {
-        if (fromUserId == Id)
-            throw new InvalidOperationException("Cannot follow yourself");
+    //public void ReceiveFollowRequest(UserId fromUserId)
+    //{
+    //    if (fromUserId == Id)
+    //        throw new InvalidOperationException("Cannot follow yourself");
 
-        if (_followers.Contains(fromUserId))
-            throw new InvalidOperationException("Already a follower");
+    //    if (_followers.Contains(fromUserId))
+    //        throw new InvalidOperationException("Already a follower");
 
-        if (_followRequests.Any(r => r.FromUserId == fromUserId && !r.IsRejected && !r.IsAccepted))
-            throw new InvalidOperationException("Request already pending");
+    //    if (_followRequests.Any(r => r.FromUserId == fromUserId && !r.IsRejected && !r.IsAccepted))
+    //        throw new InvalidOperationException("Request already pending");
 
-        var request = new FollowRequest(fromUserId);
-        _followRequests.Add(request);
+    //    var request = new FollowRequest(fromUserId);
+    //    _followRequests.Add(request);
 
-        AddDomainEvent(new UserFollowRequestReceivedEvent(Id, fromUserId));
-    }
+    //    AddDomainEvent(new UserFollowRequestReceivedEvent(Id, fromUserId));
+    //}
 
     public bool HasPendingFollowRequest(UserId fromUserId)
     {

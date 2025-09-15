@@ -101,4 +101,22 @@ DELETE http://localhost:5028/api/users/{johnUserId}/follow/{janeUserId}
 DELETE http://localhost:5028/api/users/{followerId}/follow/{userToUnfollowId}
 
 ### Test unfollow validation - unfollow non-existent user (should return error)
-DELETE http://localhost:5028/api/users/{followerId}/follow/00000000-0000-0000-0000-000000000000 
+DELETE http://localhost:5028/api/users/{followerId}/follow/00000000-0000-0000-0000-000000000000
+
+### Accept follow request (replace with actual GUIDs)
+POST http://localhost:5028/api/users/accept
+Content-Type: application/json
+
+{
+  "followerId": "{followerId}",
+  "targetUserId": "{targetUserId}"
+}
+
+### Reject follow request (replace with actual GUIDs)
+POST http://localhost:5028/api/users/reject
+Content-Type: application/json
+
+{
+  "followerId": "{followerId}",
+  "targetUserId": "{targetUserId}"
+} 

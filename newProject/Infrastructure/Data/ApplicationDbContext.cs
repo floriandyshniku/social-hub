@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using newProject.Domain.Users;
 using newProject.Domain.Posts;
 using System.Text.Json;
+using SocialHub.Domain.Users;
 
 namespace newProject.Infrastructure.Data;
 
@@ -13,10 +14,14 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Post> Posts { get; set; }
+    public DbSet<FollowRequest> FollowRequests { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        // Apply all IEntityTypeConfiguration<> mappings in this assembly
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
         // User entity configuration
         modelBuilder.Entity<User>(entity =>
