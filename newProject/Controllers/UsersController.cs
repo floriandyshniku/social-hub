@@ -1,11 +1,13 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using newProject.Application.Users.Commands.CreateUser;
-using newProject.Application.Users.Commands.UpdateUser;
 using newProject.Application.Users.Commands.DeleteUser;
+using newProject.Application.Users.Commands.FollowUser;
+using newProject.Application.Users.Commands.UpdateUser;
 using newProject.Application.Users.Queries.GetAllUsers;
 using newProject.Application.Users.Queries.GetUser;
-using newProject.Application.Users.Commands.FollowUser;
-using MediatR;
+using SocialHub.Application.Users.Commands.FollowRequest;
+using SocialHub.Application.Users.Commands.RejectFollowRequest;
 
 namespace newProject.Controllers;
 
@@ -101,5 +103,19 @@ public class UsersController : ControllerBase
 
         await _mediator.Send(command);
         return Ok(new { Message = "User followed successfully" });
+    }
+
+    [HttpPost("accept")]
+    public async Task<IActionResult> AcceptFollowRequest([FromBody] ApproveFollowRequestCommand command)
+    {
+        await _mediator.Send(command);
+        return Ok(new { Message = "Follow request accepted." });
+    }
+
+    [HttpPost("reject")]
+    public async Task<IActionResult> RejectFollowRequest([FromBody] RejectFollowRequestCommand command)
+    {
+        await _mediator.Send(command);
+        return Ok(new { Message = "Follow request rejected." });
     }
 } 
